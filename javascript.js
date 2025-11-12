@@ -46,6 +46,7 @@ const Players = (function(playerOne = 'Player 1', playerTwo = 'Player 2') {
 const Gameflow = (function() {
     const playRound = (row, col) => {
         Gameboard.placeToken(row, col);
+        console.table(Gameboard.getBoard());
         Render.drawBoard();
         if (checkWin()) console.log(`${Players.getActivePlayer().name} Wins!`);
         else if (checkDraw()) console.log('Draw!');
@@ -121,7 +122,11 @@ const Events = (function() {
     const page = document.querySelector('body');
 
     page.addEventListener(('click'), (event) => {
-        console.log(event.target.dataset)
-        Gameflow.playRound(event.target.dataset.row, event.target.dataset.col);
+        const row = event.target.dataset.row;
+        const col = event.target.dataset.col;
+
+        if (Gameboard.getBoard()[row][col] === 0) {
+            Gameflow.playRound(row, col);
+        }
     });
 })();
