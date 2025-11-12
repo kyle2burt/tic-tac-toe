@@ -88,12 +88,13 @@ const Render = (function() {
 
     const drawBoard = () => {
         const board = Gameboard.getBoard();
-        board.forEach((row) => row.forEach((item) => console.log(item)));
         const boardSize = board.length * board.length;
         for (let i = 0; i < board.length; i++) {
             for (let j = 0; j < board.length; j++) {
                 const cell = document.createElement('div');
                 cell.classList.add('cell');
+                cell.dataset.row = i;
+                cell.dataset.col = j;
 
                 if (board[i][j] != 0) cell.textContent = Players.getActivePlayer().displayToken;
 
