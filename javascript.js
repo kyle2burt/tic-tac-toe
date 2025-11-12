@@ -20,14 +20,14 @@ const Gameboard = (function() {
     return { getBoard, placeToken };
 })();
 
-const Players = (function(playerOne = 'Player 1', playerTwo = 'Player 2') {
+const Players = (function() {
     const players = [
         {
-            name: playerOne,
+            name: 'Player 1',
             token: 1,
         },
         {
-            name: playerTwo,
+            name: 'Player 2',
             token: 2,
         }
     ];
@@ -40,10 +40,18 @@ const Players = (function(playerOne = 'Player 1', playerTwo = 'Player 2') {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     };
 
-    return { getActivePlayer, switchPlayerTurn}
+    const setName = (player, name) => {
+        players[player].name = name;
+    }
+
+    return { getActivePlayer, switchPlayerTurn, setName}
 })();
 
 const Gameflow = (function() {
+
+
+
+
     const playRound = (row, col) => {
         Gameboard.placeToken(row, col);
         console.table(Gameboard.getBoard());
@@ -120,13 +128,25 @@ const Render = (function() {
 
 const Events = (function() {
     const pageBoard = document.querySelector('#game-board');
-
     pageBoard.addEventListener(('click'), (event) => {
         const row = event.target.dataset.row;
         const col = event.target.dataset.col;
 
         if (Gameboard.getBoard()[row][col] === 0) {
             Gameflow.playRound(row, col);
+        }
+    });
+
+    const startModal = document.querySelector('#start-menu');
+    startModal.addEventListener('click', (event) => {
+        switch (event.target.id) {
+            case ('start'):
+                event.preventDefault();
+                const form = document.querySelector('#start-form');
+                const formData = new FormData(form);
+                if (formData.get('player1-name') != '') Players.setName(0, formData.get('player1-name'));
+                if (formData.get('player1-name') != '') Players.setName(1, formData.get('player2-name'));
+                startModal.close();
         }
     });
 })();

@@ -37,17 +37,17 @@ dialog {
     position: absolute;
     top: 30%;
 }
-#start {
+#start-menu {
     color: var(--black);
     background-color: var(--light-blue);
     padding: 50px;
 }
-#start form {
+#start-menu form {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-#start form div {
+#start-menu form div {
     display: flex;
     gap: 10px;
 }
