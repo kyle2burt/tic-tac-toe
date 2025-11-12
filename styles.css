@@ -33,3 +33,38 @@ footer {
     justify-content: center;
     align-items: center;
 }
+dialog {
+    position: absolute;
+    top: 30%;
+}
+#start {
+    color: var(--black);
+    background-color: var(--light-blue);
+    padding: 50px;
+}
+#start form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+#start form div {
+    display: flex;
+    gap: 10px;
+}
+legend {
+    font-size: 2rem;
+}
+input {
+    border: none;
+    border-radius: 10px;
+    padding: 3px 10px;
+    color: var(--black);
+    background-color: var(--white);
+}
+button {
+    background-color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 3px;
+    margin: 0 40px;
+}
