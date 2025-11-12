@@ -7,7 +7,7 @@ const Gameboard = (function() {
     for (let i = 0; i < rows; i++) {
         board[i] = [];
         for (let j = 0; j < cols; j++) {
-            board[i].push(0);
+            board[i].push(1);
         }
     }
 
@@ -24,11 +24,13 @@ const Players = (function(playerOne = 'Player 1', playerTwo = 'Player 2') {
     const players = [
         {
             name: playerOne,
-            token: 1
+            token: 1,
+            displayToken: 'X'
         },
         {
             name: playerTwo,
-            token: 2
+            token: 2,
+            displayToken: 'O'
         }
     ];
 
@@ -85,11 +87,18 @@ const Render = (function() {
     const pageBoard = document.querySelector(".game-board");
 
     const drawBoard = () => {
-        const boardSize = Gameboard.getBoard().length * Gameboard.getBoard().length;
-        for (let i = 0; i < boardSize; i++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            pageBoard.appendChild(cell);
+        const board = Gameboard.getBoard();
+        board.forEach((row) => row.forEach((item) => console.log(item)));
+        const boardSize = board.length * board.length;
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board.length; j++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+
+                if (board[i][j] != 0) cell.textContent = Players.getActivePlayer().displayToken;
+
+                pageBoard.appendChild(cell);
+            }
         }
     }
 
