@@ -85,7 +85,7 @@ const Gameflow = (function() {
 })();
 
 const Render = (function() {
-    const pageBoard = document.querySelector(".game-board");
+    const pageBoard = document.querySelector("#game-board");
 
     const clearPage = () => {
         while(pageBoard.lastChild) {
@@ -119,9 +119,9 @@ const Render = (function() {
 })();
 
 const Events = (function() {
-    const page = document.querySelector('body');
+    const pageBoard = document.querySelector('#game-board');
 
-    page.addEventListener(('click'), (event) => {
+    pageBoard.addEventListener(('click'), (event) => {
         const row = event.target.dataset.row;
         const col = event.target.dataset.col;
 

@@ -20,7 +20,7 @@ footer {
     background-color: var(--dark-blue);
 }
 
-.game-board {
+#game-board {
     display: grid;
     grid-template-columns: repeat(3, 200px);
     justify-content: center;
