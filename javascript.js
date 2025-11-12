@@ -48,12 +48,12 @@ const Players = (function(playerOne = 'Player 1', playerTwo = 'Player 2') {
 const Gameflow = (function() {
     const playRound = (row, col) => {
         Gameboard.placeToken(row, col);
-        if (checkGameOver() == 'win') console.log(`${Players.getActivePlayer().name} Wins!`);
-        else if (checkGameOver() == 'draw') console.log('Draw!');
+        if (checkGameOver()) console.log(`${Players.getActivePlayer().name} Wins!`);
+        else if (checkDraw()) console.log('Draw!');
         Players.switchPlayerTurn();
     }
 
-    const checkGameOver = () => {
+    const checkWin = () => {
         const board = Gameboard.getBoard();
         const activeToken = Players.getActivePlayer().token;
 
@@ -71,12 +71,13 @@ const Gameflow = (function() {
                 if (board[j][reducer] === activeToken) leftDiag++;
                 reducer--;
             }
-            if (row === board.length || col === board.length || rightDiag === board.length || leftDiag === board.length) return 'win';
+            if (row === board.length || col === board.length || rightDiag === board.length || leftDiag === board.length) return true;
         }
-
-        if (!board.flat().filter((value) => value === 0)) return 'draw';
-
         return false
+    }
+
+    const checkDraw = () => {
+        if (!board.flat().filter((value) => value === 0)) return true;
     }
 
     return { playRound };
