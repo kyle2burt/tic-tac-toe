@@ -34,10 +34,9 @@ footer {
     align-items: center;
 }
 dialog {
+    margin: 0 auto;
     position: absolute;
     top: 30%;
-}
-#start-menu {
     color: var(--black);
     background-color: var(--light-blue);
     padding: 50px;
@@ -67,4 +66,12 @@ button {
     border-radius: 10px;
     padding: 3px;
     margin: 0 40px;
+}
+#game-over div {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+#game-over h2 {
+    margin: 0 30px;
 }

@@ -48,15 +48,11 @@ const Players = (function() {
 })();
 
 const Gameflow = (function() {
-
-
-
-
     const playRound = (row, col) => {
         Gameboard.placeToken(row, col);
         console.table(Gameboard.getBoard());
         Render.drawBoard();
-        if (checkWin()) console.log(`${Players.getActivePlayer().name} Wins!`);
+        if (checkWin()) Render.drawWinner();
         else if (checkDraw()) console.log('Draw!');
         Players.switchPlayerTurn();
     }
@@ -121,9 +117,16 @@ const Render = (function() {
         }
     }
 
+    const drawWinner = () => {
+        const gameOver = document.querySelector('#game-over');
+        const winText = document.querySelector('#win-text');
+        winText.textContent = `${Players.getActivePlayer().name} Wins!`
+        gameOver.showModal();
+    }
+
     drawBoard();
 
-    return { drawBoard }
+    return { drawBoard, drawWinner }
 })();
 
 const Events = (function() {
