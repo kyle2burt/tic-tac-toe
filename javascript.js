@@ -137,16 +137,17 @@ const Events = (function() {
         }
     });
 
-    const startModal = document.querySelector('#start-menu');
-    startModal.addEventListener('click', (event) => {
-        switch (event.target.id) {
-            case ('start'):
-                event.preventDefault();
-                const form = document.querySelector('#start-form');
-                const formData = new FormData(form);
-                if (formData.get('player1-name') != '') Players.setName(0, formData.get('player1-name'));
-                if (formData.get('player1-name') != '') Players.setName(1, formData.get('player2-name'));
-                startModal.close();
-        }
+    const startButton = document.querySelector('#start');
+    startButton.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const startModal = document.querySelector('#start-menu');
+        const form = document.querySelector('#start-form');
+        const formData = new FormData(form);
+
+        if (formData.get('player1-name') != '') Players.setName(0, formData.get('player1-name'));
+        if (formData.get('player1-name') != '') Players.setName(1, formData.get('player2-name'));
+
+        startModal.close();
     });
 })();
