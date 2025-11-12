@@ -43,8 +43,6 @@ const Players = (function(playerOne = 'Player 1', playerTwo = 'Player 2') {
     return { getActivePlayer, switchPlayerTurn}
 })();
 
-
-
 const Gameflow = (function() {
     const playRound = (row, col) => {
         Gameboard.placeToken(row, col);
@@ -83,4 +81,17 @@ const Gameflow = (function() {
     return { playRound };
 })();
 
-console.table(Gameboard.getBoard());
+const Render = (function() {
+    const pageBoard = document.querySelector(".game-board");
+
+    const drawBoard = () => {
+        const boardSize = Gameboard.getBoard().length * Gameboard.getBoard().length;
+        for (let i = 0; i < boardSize; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            pageBoard.appendChild(cell);
+        }
+    }
+
+    return { drawBoard }
+})();
