@@ -7,7 +7,7 @@ const Gameboard = (function() {
     for (let i = 0; i < rows; i++) {
         board[i] = [];
         for (let j = 0; j < cols; j++) {
-            board[i].push(1);
+            board[i].push(0);
         }
     }
 
@@ -25,12 +25,10 @@ const Players = (function(playerOne = 'Player 1', playerTwo = 'Player 2') {
         {
             name: playerOne,
             token: 1,
-            displayToken: 'X'
         },
         {
             name: playerTwo,
             token: 2,
-            displayToken: 'O'
         }
     ];
 
@@ -48,6 +46,7 @@ const Players = (function(playerOne = 'Player 1', playerTwo = 'Player 2') {
 const Gameflow = (function() {
     const playRound = (row, col) => {
         Gameboard.placeToken(row, col);
+        Render.drawBoard();
         if (checkWin()) console.log(`${Players.getActivePlayer().name} Wins!`);
         else if (checkDraw()) console.log('Draw!');
         Players.switchPlayerTurn();
@@ -77,6 +76,7 @@ const Gameflow = (function() {
     }
 
     const checkDraw = () => {
+        const board = Gameboard.getBoard();
         if (!board.flat().filter((value) => value === 0)) return true;
     }
 
@@ -86,7 +86,15 @@ const Gameflow = (function() {
 const Render = (function() {
     const pageBoard = document.querySelector(".game-board");
 
+    const clearPage = () => {
+        while(pageBoard.lastChild) {
+            pageBoard.removeChild(pageBoard.lastChild);
+        }
+    }
+
     const drawBoard = () => {
+        clearPage();
+
         const board = Gameboard.getBoard();
         const boardSize = board.length * board.length;
         for (let i = 0; i < board.length; i++) {
@@ -96,12 +104,24 @@ const Render = (function() {
                 cell.dataset.row = i;
                 cell.dataset.col = j;
 
-                if (board[i][j] != 0) cell.textContent = Players.getActivePlayer().displayToken;
+                if (board[i][j] === 1) cell.textContent = 'X';
+                else if (board[i][j] === 2) cell.textContent = 'O';
 
                 pageBoard.appendChild(cell);
             }
         }
     }
 
+    drawBoard();
+
     return { drawBoard }
+})();
+
+const Events = (function() {
+    const page = document.querySelector('body');
+
+    page.addEventListener(('click'), (event) => {
+        console.log(event.target.dataset)
+        Gameflow.playRound(event.target.dataset.row, event.target.dataset.col);
+    });
 })();
