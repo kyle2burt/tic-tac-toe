@@ -46,7 +46,7 @@ const Players = (function(playerOne = 'Player 1', playerTwo = 'Player 2') {
 const Gameflow = (function() {
     const playRound = (row, col) => {
         Gameboard.placeToken(row, col);
-        if (checkGameOver()) console.log(`${Players.getActivePlayer().name} Wins!`);
+        if (checkWin()) console.log(`${Players.getActivePlayer().name} Wins!`);
         else if (checkDraw()) console.log('Draw!');
         Players.switchPlayerTurn();
     }
