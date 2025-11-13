@@ -3,12 +3,13 @@ const Gameboard = (function() {
     const cols = 3;
     const board = [];
 
-    // Create empty board
-    for (let i = 0; i < rows; i++) {
+    const setBoard = () => {
+        for (let i = 0; i < rows; i++) {
         board[i] = [];
         for (let j = 0; j < cols; j++) {
             board[i].push(0);
         }
+    }
     }
 
     const getBoard = () => board;
@@ -17,7 +18,8 @@ const Gameboard = (function() {
         board[row][col] = Players.getActivePlayer().token;
     }
 
-    return { getBoard, placeToken };
+    setBoard();
+    return { getBoard, placeToken, setBoard };
 })();
 
 const Players = (function() {
@@ -152,5 +154,14 @@ const Events = (function() {
         if (formData.get('player1-name') != '') Players.setName(1, formData.get('player2-name'));
 
         startModal.close();
+    });
+
+    const gameOverModal = document.querySelector('#game-over');
+    const playAgainButton = document.querySelector('#play-again');
+    playAgainButton.addEventListener('click', (event) => {
+        Gameboard.setBoard();
+        Render.drawBoard();
+        if (Players.getActivePlayer().token != 'X') Players.switchPlayerTurn();
+        gameOverModal.close();
     });
 })();
